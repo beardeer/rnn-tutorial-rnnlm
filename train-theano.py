@@ -82,6 +82,13 @@ for i, sent in enumerate(tokenized_sentences):
 X_train = np.asarray([[word_to_index[w] for w in sent[:-1]] for sent in tokenized_sentences])
 y_train = np.asarray([[word_to_index[w] for w in sent[1:]] for sent in tokenized_sentences])
 
+print X_train.shape
+print X_train[:3]
+print y_train.shape
+print y_train[:3]
+
+raw_input()
+
 
 model = RNNTheano(vocabulary_size, hidden_dim=_HIDDEN_DIM)
 t1 = time.time()
