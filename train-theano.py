@@ -37,7 +37,7 @@ def train_with_sgd(model, X_train, y_train, learning_rate=0.005, nepoch=1, evalu
                 print "Setting learning rate to %f" % learning_rate
             sys.stdout.flush()
             # ADDED! Saving model oarameters
-            save_model_parameters_theano("./data/rnn-theano-%d-%d-%s.npz" % (model.hidden_dim, model.word_dim, time), model)
+            #save_model_parameters_theano("./data/rnn-theano-%d-%d-%s.npz" % (model.hidden_dim, model.word_dim, time), model)
         # For each training example...
         for i in range(len(y_train)):
             # One SGD step
@@ -84,20 +84,6 @@ sentence_end_token = "SENTENCE_END"
 x, y = dkt_input_data_reader()
 X_train = np.asarray(x)
 y_train = np.asarray(y)
-
-# print X_train.shape
-# print len(X_train[0])
-# print X_train[0]
-# print X_train[1]
-# print X_train[2]
-
-# print y_train.shape
-# print len(y_train[0])
-# print y_train[0]
-# print y_train[1]
-# print y_train[2]
-
-# raw_input()
 
 
 model = RNNTheano(vocabulary_size, hidden_dim=_HIDDEN_DIM)
