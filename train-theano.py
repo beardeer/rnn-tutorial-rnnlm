@@ -14,11 +14,19 @@ from rnn_theano import RNNTheano
 
 from data_process import dkt_input_data_reader
 
-_VOCABULARY_SIZE = (111 + 2)  * 2
+
+x, y, n = dkt_input_data_reader()
+
+print n
+
+_VOCABULARY_SIZE = n + 1
 _HIDDEN_DIM = int(os.environ.get('HIDDEN_DIM', '80'))
-_LEARNING_RATE = float(os.environ.get('LEARNING_RATE', '0.05'))
+_LEARNING_RATE = float(os.environ.get('LEARNING_RATE', '0.005'))
 _NEPOCH = int(os.environ.get('NEPOCH', '100'))
 _MODEL_FILE = os.environ.get('MODEL_FILE')
+
+X_train = np.asarray(x)
+y_train = np.asarray(y)
 
 def train_with_sgd(model, X_train, y_train, learning_rate=0.005, nepoch=1, evaluate_loss_after=5):
     # We keep track of the losses so we can plot them later
@@ -80,10 +88,6 @@ sentence_end_token = "SENTENCE_END"
 # for i, sent in enumerate(tokenized_sentences):
 #     tokenized_sentences[i] = [w if w in word_to_index else unknown_token for w in sent]
 
-# Create the training data
-x, y = dkt_input_data_reader()
-X_train = np.asarray(x)
-y_train = np.asarray(y)
 
 
 model = RNNTheano(vocabulary_size, hidden_dim=_HIDDEN_DIM)
