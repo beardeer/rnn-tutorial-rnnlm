@@ -27,10 +27,12 @@ class RNNTheano:
         U, V, W = self.U, self.V, self.W
         x = T.ivector('x')
         y = T.ivector('y')
+        
         def forward_prop_step(x_t, s_t_prev, U, V, W):
             s_t = T.tanh(U[:,x_t] + W.dot(s_t_prev))
             o_t = T.nnet.softmax(V.dot(s_t))
             return [o_t[0], s_t]
+        
         [o,s], updates = theano.scan(
             forward_prop_step,
             sequences=x,
@@ -39,7 +41,7 @@ class RNNTheano:
             truncate_gradient=self.bptt_truncate,
             strict=True)
         
-        prediction = T.argmax(o, axis=1)
+        prediction = o
         o_error = T.sum(T.nnet.categorical_crossentropy(o, y))
         
         # Gradients
